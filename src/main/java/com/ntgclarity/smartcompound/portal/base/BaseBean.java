@@ -43,10 +43,4 @@ public class BaseBean implements Serializable {
 	public void addMessage(FacesMessage.Severity severity, String summary) {
 		addMessage(severity,summary, "");
 	}
-	
-	public void redirect(String url)
-	{
-		// 
-		
-	}
 }

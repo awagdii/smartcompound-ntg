@@ -1,6 +1,7 @@
 package com.ntgclarity.smartcompound.dataaccess.daoimpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,24 +22,24 @@ public class EmployeeDAOImpl extends BaseDAO implements EmployeeDAO {
 	public Employee getEmployee(Long id) {
 		return  (Employee) super.get(Employee.class , id);
 	}
+
 	@Override
-	public Employee updateEmployee(Employee employee) {
-		// TODO Auto-generated method stub
-		return (Employee) super.update(employee);
+	public List<Employee> loadEmployees(int first, int pageSize,
+			String sortField, boolean ascending, Map<String, Object> filters) {
+			
+		return super.load(Employee.class,first,pageSize,sortField,ascending,filters);
 	}
 
-	/**
-	 *methodCreater:nessma 
-	 *create Employee 
-	 *this metohd will call saveOrUpdate() in the super class BaseDAO
-	 
-	  **/
+	@Override
+	public int getNumOfEmployeesRows(Map<String, Object> filters) {
+		
+		return super.getNumOfRows(Employee.class,filters);
+	}
+
 	@Override
 	public Employee insertEmployee(Employee employee) {
-		
-		return (Employee) super.update(employee);
-		
-		
+	
+	return (Employee)  super.insert(employee);
 	}
 
 }

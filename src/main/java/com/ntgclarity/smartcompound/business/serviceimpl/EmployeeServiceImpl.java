@@ -1,8 +1,8 @@
 package com.ntgclarity.smartcompound.business.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.jws.WebService;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeDAO employeeDAO;
-	
+	private static  List<Employee> employeeQueue=new ArrayList<Employee>();;
+	private List<Employee> employeeQueueFail;
+	public List<Employee> getEmployeeQueueFail() {
+		return employeeQueueFail;
+	}
+
+	public void setEmployeeQueueFail(List<Employee> employeeQueueFail) {
+		this.employeeQueueFail = employeeQueueFail;
+	}
+
+	public List<Employee> getEmployeeQueue() {
+		return employeeQueue;
+	}
+
+	public void setEmployeeQueue(List<Employee> employeeQueue) {
+		this.employeeQueue = employeeQueue;
+	}
+
 	@Override
 	public List<Employee> getAllEmployees() {
 		return employeeDAO.getAllEmployees();
@@ -30,23 +47,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		return null;
 	}
-	/**
-	 *methodCreater:nessma 
-	 *create Employee 
-	 *this metohd will call employeeDAO.insertEmployee
-	 
-	  **/
+
 	@Override
-	public Employee insertEmployee(Employee employee) {
-		
-		return employeeDAO.insertEmployee(employee);
-	}
-	@Override
-	public Employee updateEmployee(Employee employee) {
-		// TODO Auto-generated method stub
-		return employeeDAO.updateEmployee(employee);
-		
+	public List<Employee> loadEmployees(int first, int pageSize,
+			String sortField, boolean ascending, Map<String, Object> filters) {
+		return employeeDAO.loadEmployees(first,pageSize,sortField,ascending,filters);
 	}
 
+	@Override
+	public int getNumOfEmployeesRows(Map<String, Object> filters) {
+	
+		return  employeeDAO.getNumOfEmployeesRows(filters);
+	}
 
+	
+	
 }

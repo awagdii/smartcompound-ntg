@@ -13,14 +13,14 @@
 	<h:form>
 		<b:container layout="fluid">
 			<b:row>
-				<b:column medium-screen="2">
+				<b:column medium-screen="2" >
 					<p:outputLabel value="Select employee" />
 				</b:column>
 				<b:column medium-screen="10">
-					<!-- 					Boot faces needs no converter -->
-					<b:selectOneMenu value="#{employeeBean.selectedEmployee}">
-						<f:selectItem itemValue="#{employeeBean.initiateNewEmployee()}"
-							itemLabel="Select Employee" itemDisabled="true" />
+<!-- 					Boot faces needs no converter -->
+					<b:selectOneMenu value="#{employeeBean.selectedEmployee}" >
+						<f:selectItem itemValue="" itemLabel="Select Employee"
+							itemDisabled="true" />
 						<f:selectItems value="#{employeeBean.allEmployees}" var="employee"
 							itemValue="#{employee}" itemLabel="#{employee.name}" />
 					</b:selectOneMenu>
@@ -31,33 +31,6 @@
 					<b:commandButton value="print employee" look="success"
 						actionListener="#{employeeBean.printEmployee()}"></b:commandButton>
 				</b:column>
-
-				<b:column>
-					<b:commandButton value="create Employee" look="success"
-						action="/employee/createEmployee.xhtml"
-						actionListener="#{employeeBean.initiateNewEmployee()}"></b:commandButton>
-				</b:column>
-				<b:column>
-					<b:commandButton value="create Department" look="success"
-						action="/department/createDepartment.xhtml"></b:commandButton>
-				</b:column>
-				<b:column>
-					<b:commandButton value="Edit Employee" look="success"
-						action="/employee/editEmployee.xhtml" />
-				</b:column>
-
-				<b:column span="2">
-					<b:commandButton value="view" look="success" style="width:100%"
-						action="/employee/view.xhtml">
-					</b:commandButton>
-				</b:column>
-				<b:column>
-					<b:commandButton value="Search " look="success"
-						action="/employee/searchEmployee.xhtml" />
-				</b:column>
-
-
-
 			</b:row>
 		</b:container>
 	</h:form>

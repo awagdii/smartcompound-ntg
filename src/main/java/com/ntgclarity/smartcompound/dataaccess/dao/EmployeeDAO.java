@@ -1,6 +1,7 @@
 package com.ntgclarity.smartcompound.dataaccess.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ntgclarity.smartcompound.common.entity.Employee;
 
@@ -10,8 +11,11 @@ public interface EmployeeDAO {
 
 	Employee getEmployee(Long id);
 
-	Employee insertEmployee(Employee employee);
+	List<Employee> loadEmployees(int first, int pageSize, String sortField,
+			boolean ascending, Map<String, Object> filters);
 
-	Employee updateEmployee(Employee employee);
+	int getNumOfEmployeesRows(Map<String, Object> filters);
+
+	Employee insertEmployee(Employee employee);
 
 }
