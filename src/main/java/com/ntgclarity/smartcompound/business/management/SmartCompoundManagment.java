@@ -1,6 +1,7 @@
 package com.ntgclarity.smartcompound.business.management;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,11 @@ public interface SmartCompoundManagment {
 	Department insertDepartment(Department department);
 
 	void updateEmployee(Employee employee);
+
 	int getNumOfEmployeesRows(Map<String, Object> filters);
 
+	List<Employee> loadEmployees(int first, int pageSize, String sortField,
+			boolean ascending, Map<String, Object> filters);
 
 	void insertEmployeeInEmpQueue(Employee employee);
 

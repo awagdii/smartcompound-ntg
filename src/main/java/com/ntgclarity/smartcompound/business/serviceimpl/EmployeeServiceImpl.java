@@ -1,6 +1,7 @@
 package com.ntgclarity.smartcompound.business.serviceimpl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.jws.WebService;
 
@@ -46,6 +47,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 		// TODO Auto-generated method stub
 		return employeeDAO.updateEmployee(employee);
 		
+	}
+
+	@Override
+	public List<Employee> loadEmployees(int first, int pageSize,
+			String sortField, boolean ascending, Map<String, Object> filters) {
+		return employeeDAO.loadEmployees(first,pageSize,sortField,ascending,filters);
+	}
+
+	@Override
+	public int getNumOfEmployeesRows(Map<String, Object> filters) {
+	
+		return  employeeDAO.getNumOfEmployeesRows(filters);
 	}
 
 

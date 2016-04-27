@@ -25,7 +25,7 @@ public class DepartmentDAOImpl extends BaseDAO implements DepartmentDAO{
 	@Override
 	public Department insertDepartment(Department department) {
 	
-		return (Department) super.saveOrUpdate(department);
+		return (Department) super.insert(department);
 	}
 
 }

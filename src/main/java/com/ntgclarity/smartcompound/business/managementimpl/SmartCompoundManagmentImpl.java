@@ -1,12 +1,14 @@
 package com.ntgclarity.smartcompound.business.managementimpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ntgclarity.smartcompound.business.management.SmartCompoundManagment;
 import com.ntgclarity.smartcompound.business.service.DepartmentService;
+import com.ntgclarity.smartcompound.business.service.EmployeeCRUDService;
 import com.ntgclarity.smartcompound.business.service.EmployeeService;
 import com.ntgclarity.smartcompound.common.entity.Department;
 import com.ntgclarity.smartcompound.common.entity.Employee;
@@ -18,6 +20,8 @@ public class SmartCompoundManagmentImpl implements SmartCompoundManagment {
 	private EmployeeService employeeService;
 	@Autowired
 	private DepartmentService departmentService;
+	@Autowired
+	private EmployeeCRUDService employeeCRUDService;
 
 	@Override
 	public List<Employee> getAllEmployees() {
@@ -73,5 +77,38 @@ public class SmartCompoundManagmentImpl implements SmartCompoundManagment {
 	public void insertEmployeeInEmpQueue(Employee employee) {
 		 employeeCRUDService.insertEmployeeInEmpQueue(employee);
 	}
+
+	@Override
+	public List<Employee> loadEmployees(int first, int pageSize,
+			String sortField, boolean ascending, Map<String, Object> filters) {
+		return employeeService.loadEmployees(first,pageSize,sortField,ascending,filters);
+	}
+
+	public EmployeeService getEmployeeService() {
+		return employeeService;
+	}
+
+	public void setEmployeeService(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
+
+	public DepartmentService getDepartmentService() {
+		return departmentService;
+	}
+
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
+	}
+
+	public EmployeeCRUDService getEmployeeCRUDService() {
+		return employeeCRUDService;
+	}
+
+	public void setEmployeeCRUDService(EmployeeCRUDService employeeCRUDService) {
+		this.employeeCRUDService = employeeCRUDService;
+	}
+	
+
+	
 
 }
