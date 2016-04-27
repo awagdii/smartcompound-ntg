@@ -61,5 +61,17 @@ public class SmartCompoundManagmentImpl implements SmartCompoundManagment {
 		employeeService.updateEmployee(employee);
 
 	}
+	@Override
+	public int getNumOfEmployeesRows(Map<String, Object> filters) {
+		
+		return employeeService.getNumOfEmployeesRows(filters);
+	}
+
+
+
+	@Override
+	public void insertEmployeeInEmpQueue(Employee employee) {
+		 employeeCRUDService.insertEmployeeInEmpQueue(employee);
+	}
 
 }

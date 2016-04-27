@@ -36,9 +36,21 @@ public class EmployeeDAOImpl extends BaseDAO implements EmployeeDAO {
 	@Override
 	public Employee insertEmployee(Employee employee) {
 		
-		return (Employee) super.update(employee);
+		return (Employee) super.insert(employee);
 		
 		
+	}
+	@Override
+	public List<Employee> loadEmployees(int first, int pageSize,
+			String sortField, boolean ascending, Map<String, Object> filters) {
+			
+		return super.load(Employee.class,first,pageSize,sortField,ascending,filters);
+	}
+
+	@Override
+	public int getNumOfEmployeesRows(Map<String, Object> filters) {
+		
+		return super.getNumOfRows(Employee.class,filters);
 	}
 
 }

@@ -23,5 +23,9 @@ public interface SmartCompoundManagment {
 	Department insertDepartment(Department department);
 
 	void updateEmployee(Employee employee);
+	int getNumOfEmployeesRows(Map<String, Object> filters);
+
+
+	void insertEmployeeInEmpQueue(Employee employee);
 
 }

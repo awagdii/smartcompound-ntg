@@ -23,7 +23,7 @@ public abstract class BaseDAO {
 		return sessionFactory.getCurrentSession();
 	}
 
-	public Object saveOrUpdate(Object entity) {
+	public Object insert(Object entity) {
 		getCurrentSession().persist(entity);
 		return entity;
 	}

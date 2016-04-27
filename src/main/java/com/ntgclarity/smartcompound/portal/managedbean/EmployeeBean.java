@@ -32,11 +32,13 @@ public class EmployeeBean extends BaseBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private List<Employee> allEmployees;
+	private LazyDataModel<Employee> lazyEmployeeModel;
 
 	@PostConstruct
 	public void init() {
 		loadAllEmployees();
 		initiateNewEmployee();
+		LoadData();
 	}
 
 	public Employee initiateNewEmployee() {
@@ -90,7 +92,51 @@ public class EmployeeBean extends BaseBean implements Serializable {
 		addInfoMessage("Employee has been updated successfully");
 		loadAllEmployees();
 	}
+	public void LoadData() {
+	    lazyEmployeeModel = new LazyDataModel<Employee>() {
+	    	private List<Employee> result ;
+			
 
+			private static final long serialVersionUID = 1L;
+
+			
+		    @Override
+		    public Employee getRowData(String rowKey) {
+		        for(Employee Employee : result) {
+		            if(Employee.getId().equals(rowKey))
+		                return Employee;
+		        }
+		 
+		        return null;
+		    }
+		 
+		    @Override
+		    public Object getRowKey(Employee Employee) {
+		        return Employee.getId();
+		    }
+			
+			@Override    
+	        public List<Employee> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters) {
+				
+	        	
+				result= getSmartCompoundManagment().loadEmployees(first,pageSize,sortField,sortOrder==SortOrder.ASCENDING,filters);
+				this.setRowCount(getSmartCompoundManagment().getNumOfEmployeesRows(filters));
+				
+				return result;
+	        }
+	    };
+
+	
+	}
+	public LazyDataModel<Employee> getLazyEmployeeModel() {
+		return lazyEmployeeModel;
+	}
+
+
+
+	public void setLazyEmployeeModel(LazyDataModel<Employee> lazyEmployeeModel) {
+		this.lazyEmployeeModel = lazyEmployeeModel;
+	}
 	public List<Employee> getAllEmployees() {
 		return allEmployees;
 	}

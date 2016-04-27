@@ -13,5 +13,9 @@ public interface EmployeeService {
 	Employee insertEmployee(Employee employee);
 
 	Employee updateEmployee(Employee employee);
+	List<Employee> loadEmployees(int first, int pageSize, String sortField,
+			boolean ascending, Map<String, Object> filters);
+
+	int getNumOfEmployeesRows(Map<String, Object> filters);
 
 }
