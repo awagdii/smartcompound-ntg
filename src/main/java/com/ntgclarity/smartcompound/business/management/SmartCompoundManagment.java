@@ -1,10 +1,10 @@
 package com.ntgclarity.smartcompound.business.management;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.ntgclarity.smartcompound.common.entity.Department;
 import com.ntgclarity.smartcompound.common.entity.Employee;
 
 @Service
@@ -12,14 +12,16 @@ public interface SmartCompoundManagment {
 
 	List<Employee> getAllEmployees();
 
+	List<Department> getAllDepartments();
+
 	Employee getEmployee(Long id);
 
-	List<Employee> loadEmployees(int first, int pageSize, String sortField,
-			boolean ascending, Map<String, Object> filters);
+	Department getDepartment(Long id);
 
-	int getNumOfEmployeesRows(Map<String, Object> filters);
+	Employee insertEmployee(Employee employee);
 
+	Department insertDepartment(Department department);
 
-	void insertEmployeeInEmpQueue(Employee employee);
+	void updateEmployee(Employee employee);
 
 }

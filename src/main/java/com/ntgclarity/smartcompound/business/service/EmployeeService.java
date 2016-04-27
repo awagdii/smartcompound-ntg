@@ -1,7 +1,6 @@
 package com.ntgclarity.smartcompound.business.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.ntgclarity.smartcompound.common.entity.Employee;
 
@@ -11,10 +10,8 @@ public interface EmployeeService {
 
 	Employee getEmployee(Long id);
 
-	List<Employee> loadEmployees(int first, int pageSize, String sortField,
-			boolean ascending, Map<String, Object> filters);
+	Employee insertEmployee(Employee employee);
 
-	int getNumOfEmployeesRows(Map<String, Object> filters);
-
+	Employee updateEmployee(Employee employee);
 
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.ntgclarity.smartcompound.common.base.BaseEntity;
 
@@ -29,6 +31,9 @@ public class Employee extends BaseEntity implements Serializable {
 
 	@Column(name = "EMPLOYEE_NAME")
 	private String name;
+	@JoinColumn(name = "dept_id", referencedColumnName = "id")
+	@ManyToOne
+	private Department deptId;
 
 	public Long getId() {
 		return id;
@@ -46,8 +51,19 @@ public class Employee extends BaseEntity implements Serializable {
 		this.name = name;
 	}
 
+	public Department getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Department deptId) {
+		this.deptId = deptId;
+	}
+
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + "]";
+		return "Employee [id=" + id + ", name=" + name + ", deptId=" + deptId
+				+ "]";
 	}
+
+	
 }

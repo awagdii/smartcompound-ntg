@@ -29,7 +29,7 @@
 	</servlet-mapping>
 	<!-- Welcome page -->
 	<welcome-file-list>
-		<welcome-file>employeelistener.xhtml</welcome-file>
+		<welcome-file>login.xhtml</welcome-file>
 	</welcome-file-list>
 
 	

@@ -1,37 +1,34 @@
 package com.ntgclarity.smartcompound.portal.managedbean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
-import org.primefaces.event.SelectEvent;
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
+import org.primefaces.context.RequestContext;
 
 import com.ntgclarity.smartcompound.business.management.SmartCompoundManagment;
 import com.ntgclarity.smartcompound.common.entity.Employee;
 import com.ntgclarity.smartcompound.portal.base.BaseBean;
 
-
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class EmployeeBean extends BaseBean implements Serializable {
 
 	@ManagedProperty(value = "#{smartCompoundManagmentImpl}")
 	private SmartCompoundManagment smartCompoundManagment;
 
-	private LazyDataModel<Employee> lazyEmployeeModel;
-
 	private Employee selectedEmployee;
 
-	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	private List<Employee> allEmployees;
@@ -39,22 +36,26 @@ public class EmployeeBean extends BaseBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		loadAllEmployees();
-		LoadData();
-		
+		initiateNewEmployee();
 	}
+
+	public Employee initiateNewEmployee() {
+		selectedEmployee = new Employee();
+		return selectedEmployee;
+	}
+
+	/**
+	 * methodCreater:nessma create Employee this metohd will call
+	 * smartCompoundManagment.insertEmployee
+	 **/
+
+	public void createEmployee() {
 
 	
-	public LazyDataModel<Employee> getLazyEmployeeModel() {
-		return lazyEmployeeModel;
+		smartCompoundManagment.insertEmployee(selectedEmployee);
+		addInfoMessage("Employee has been created successfully");
+
 	}
-
-
-
-	public void setLazyEmployeeModel(LazyDataModel<Employee> lazyEmployeeModel) {
-		this.lazyEmployeeModel = lazyEmployeeModel;
-	}
-
-
 
 	public void loadAllEmployees() {
 		allEmployees = smartCompoundManagment.getAllEmployees();
@@ -63,12 +64,31 @@ public class EmployeeBean extends BaseBean implements Serializable {
 	public void testMethod() {
 
 		loadAllEmployees();
-	
-		
+	}
+	public void getEmployee(String id){
+		selectedEmployee=smartCompoundManagment.getEmployee( Long.parseLong(id));
+		if(selectedEmployee!=null){
+			
+			 System.out.println("found");
+			
+			 RequestContext.getCurrentInstance().execute("PF('foundDialog').show()");
+//			  RequestContext.getCurrentInstance().openDialog("foundDialog");
+		}
+		else{
+			System.out.println("notfound");
+			 RequestContext.getCurrentInstance().execute("PF('notFoundDialog').show()");
+		}
 	}
 
 	public void printEmployee() {
 		System.out.println(selectedEmployee);
+	}
+
+	public void updateEmployee() {
+		System.err.println("in Update emp");
+		smartCompoundManagment.updateEmployee(selectedEmployee);
+		addInfoMessage("Employee has been updated successfully");
+		loadAllEmployees();
 	}
 
 	public List<Employee> getAllEmployees() {
@@ -95,43 +115,5 @@ public class EmployeeBean extends BaseBean implements Serializable {
 	public void setSelectedEmployee(Employee selectedEmployee) {
 		this.selectedEmployee = selectedEmployee;
 	}
-
-	public void LoadData() {
-	    lazyEmployeeModel = new LazyDataModel<Employee>() {
-	    	private List<Employee> result ;
-			
-
-			private static final long serialVersionUID = 1L;
-
-			
-		    @Override
-		    public Employee getRowData(String rowKey) {
-		        for(Employee Employee : result) {
-		            if(Employee.getId().equals(rowKey))
-		                return Employee;
-		        }
-		 
-		        return null;
-		    }
-		 
-		    @Override
-		    public Object getRowKey(Employee Employee) {
-		        return Employee.getId();
-		    }
-			
-			@Override    
-	        public List<Employee> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters) {
-				
-	        	
-				result= getSmartCompoundManagment().loadEmployees(first,pageSize,sortField,sortOrder==SortOrder.ASCENDING,filters);
-				this.setRowCount(getSmartCompoundManagment().getNumOfEmployeesRows(filters));
-				
-				return result;
-	        }
-	    };
-
-	
-	}
-
 
 }
